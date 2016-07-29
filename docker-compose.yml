@@ -1,0 +1,22 @@
+django:
+  build: .
+
+  environment:
+    DJANGO_SETTINGS_MODULE: config.settings
+    DB_HOST: postgres
+    DB_NAME: postgres
+
+  ports:
+    - "8000:80"
+
+  links:
+    - postgres
+    - redis
+  volumes:
+    - ./src/:/project/src/
+
+postgres:
+  image: postgres
+
+redis:
+  image: redis:latest

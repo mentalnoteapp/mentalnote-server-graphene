@@ -1,0 +1,38 @@
+Django==1.9.7
+django-filter==0.13.0
+
+# channels 
+channels==0.15.0
+asgi-redis==0.13.1
+daphne==0.13.0
+
+# DRF
+djangorestframework==3.3.3
+djangorestframework-filters==0.8.0
+djangorestframework-jwt==1.8.0
+djoser==0.4.3
+drf-nested-routers==0.11.1
+
+django-sekizai==0.9.0
+gnureadline==6.3.3
+html5lib==0.9999999
+pexpect==4.0.1
+pickleshare==0.7.2
+Pillow==3.2.0
+ptyprocess==0.5.1
+requests==2.9.1
+simplegeneric==0.8.1
+six==1.10.0
+traitlets==4.2.1
+django-filer==1.2.0
+pyjade==4.0.0
+django-reversion<=1.11
+
+# dev
+ipdb==0.9.3
+ipython==4.2.0
+ipython-genutils==0.1.0
+
+uWSGI==2.0.12
+dj-database-url==0.4.1
+psycopg2==2.6.1

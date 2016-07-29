@@ -1,0 +1,4 @@
+env/
+static/
+!src/static/
+*.sqlite3
