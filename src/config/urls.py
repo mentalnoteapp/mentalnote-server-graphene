@@ -37,9 +37,9 @@ from apps.tags.viewsets import TagViewSet
 
 API_ROOT = DefaultRouter()
 API_ROOT.register(
-    r'notes', NoteViewSet, base_name='accounts')
+    r'notes', NoteViewSet, base_name='notes')
 API_ROOT.register(
-    r'tags', TagViewSet, base_name='accounts')
+    r'tags', TagViewSet, base_name='tags')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

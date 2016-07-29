@@ -11,5 +11,5 @@ class NoteViewSet(viewsets.ModelViewSet):
     serializer_class = NoteSerializer
 
     def get_queryset(self):
-        return Note.objects.filter(owner=request.user)
+        return Note.objects.filter(owner=self.request.user)
 
