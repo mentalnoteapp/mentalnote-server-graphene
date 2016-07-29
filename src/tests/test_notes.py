@@ -60,7 +60,7 @@ def test_notes_list_GET_200(rest_client, user, note):
 @pytest.mark.django_db
 def test_notes_list_POST_201(rest_client, user, note):
     """
-    note owner can access notes collection
+    note owner can post new note
     """
 
     rest_client.force_authenticate(user=user)
@@ -101,3 +101,24 @@ def test_notes_detail_GET_200(rest_client, user, note):
 
     assert response.status_code == 200
     assert len(response.data) > 0
+
+
+@pytest.mark.django_db
+def test_notes_detail_PUT_200(rest_client, user, note):
+    """
+    note owner can alter note
+    """
+
+    rest_client.force_authenticate(user=user)
+    url = reverse('notes-detail', kwargs={"pk": note.id})
+
+    new_body = 'new'
+    data = {}
+    data['owner'] = note.owner.id
+    data['title'] = note.title
+    data['note'] = new_body
+
+    response = rest_client.put(url, data)
+
+    assert response.status_code == 200
+    assert response.data['note'] == new_body
