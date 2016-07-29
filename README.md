@@ -1,11 +1,5 @@
-# djangocms-docker-cookiecutter
-
-## https://medium.com/@JakubBorys/docerizing-django-cms-28c3ed11ba43#.ylgod8h4a
-
-## what's inside.
-* python3
-* Django 1.9.5
-* pyjade
+# Mental Note DRF
+Django restframework version of the mental note project.
 
 # Usage
 
