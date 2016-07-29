@@ -34,12 +34,12 @@ def rest_client():
     return APIClient()
 
 
-def test_notes_list_GET_401(client):
+def test_notes_list_GET_401(rest_client):
     """
     no unauthorized access
     """
     url = reverse('notes-list')
-    response = client.get(url)
+    response = rest_client.get(url)
     assert response.status_code == 401
 
 
@@ -51,6 +51,32 @@ def test_notes_list_GET_200(rest_client, user, note):
 
     rest_client.force_authenticate(user=user)
     url = reverse('notes-list')
+    response = rest_client.get(url)
+
+    assert response.status_code == 200
+    assert len(response.data) > 0
+
+
+@pytest.mark.django_db
+def test_notes_detail_GET_401(rest_client, note):
+    """
+    no unauthorized access
+    """
+
+    url = reverse('notes-detail', kwargs={"pk": note.id})
+    response = rest_client.get(url)
+
+    assert response.status_code == 401
+
+
+@pytest.mark.django_db
+def test_notes_detail_GET_200(rest_client, user, note):
+    """
+    note owner can access note detail
+    """
+
+    rest_client.force_authenticate(user=user)
+    url = reverse('notes-detail', kwargs={"pk": note.id})
     response = rest_client.get(url)
 
     assert response.status_code == 200
