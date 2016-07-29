@@ -5,20 +5,7 @@ from django.contrib.auth.models import User
 
 from rest_framework.test import APIClient
 
-from apps.notes.models import Note
-
-from .fixtures import note, rest_client, user
-
-
-@pytest.fixture
-@pytest.mark.django_db
-def note(user):
-    note = Note.objects.create(
-        owner=user,
-        title='test note',
-        note='test note body'
-    )
-    return note
+from .fixtures import note, rest_client, user, tag
 
 
 def test_notes_list_GET_401(rest_client):

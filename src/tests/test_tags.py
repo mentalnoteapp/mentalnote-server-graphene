@@ -2,18 +2,7 @@ import pytest
 
 from django.core.urlresolvers import reverse
 
-from apps.tags.models import Tag
-from .fixtures import rest_client, user
-
-
-@pytest.fixture
-@pytest.mark.django_db
-def tag(user):
-    tag = Tag.objects.create(
-        owner=user,
-        name='test tag'
-    )
-    return tag
+from .fixtures import rest_client, tag, user
 
 
 def test_tags_tags_GET_401(rest_client):

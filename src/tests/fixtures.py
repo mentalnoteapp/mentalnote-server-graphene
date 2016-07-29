@@ -5,6 +5,14 @@ from django.contrib.auth.models import User
 
 from rest_framework.test import APIClient
 
+from apps.notes.models import Note
+from apps.tags.models import Tag
+
+
+@pytest.fixture
+def rest_client():
+    return APIClient()
+
 
 @pytest.fixture
 @pytest.mark.django_db
@@ -28,5 +36,21 @@ def note(user):
 
 
 @pytest.fixture
-def rest_client():
-    return APIClient()
+@pytest.mark.django_db
+def note(user):
+    note = Note.objects.create(
+        owner=user,
+        title='test note',
+        note='test note body'
+    )
+    return note
+
+
+@pytest.fixture
+@pytest.mark.django_db
+def tag(user):
+    tag = Tag.objects.create(
+        owner=user,
+        name='test tag'
+    )
+    return tag
