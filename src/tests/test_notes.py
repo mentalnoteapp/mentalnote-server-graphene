@@ -122,3 +122,17 @@ def test_notes_detail_PUT_200(rest_client, user, note):
 
     assert response.status_code == 200
     assert response.data['note'] == new_body
+
+
+@pytest.mark.django_db
+def test_notes_detail_DELETE_204(rest_client, user, note):
+    """
+    note owner can delete note
+    """
+
+    rest_client.force_authenticate(user=user)
+    url = reverse('notes-detail', kwargs={"pk": note.id})
+
+    response = rest_client.delete(url)
+
+    assert response.status_code == 204
