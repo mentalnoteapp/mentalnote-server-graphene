@@ -38,7 +38,7 @@ def note(user):
 @pytest.fixture
 @pytest.mark.django_db
 def note(user):
-    note = Note.objects.create(
+    note, created = Note.objects.get_or_create(
         owner=user,
         title='test note',
         note='test note body'
@@ -49,7 +49,7 @@ def note(user):
 @pytest.fixture
 @pytest.mark.django_db
 def tag(user):
-    tag = Tag.objects.create(
+    tag, created = Tag.objects.get_or_create(
         owner=user,
         name='test tag'
     )
