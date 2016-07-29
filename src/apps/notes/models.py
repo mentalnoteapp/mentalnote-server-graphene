@@ -6,7 +6,7 @@ from apps.tags.models import Tag
 
 class Note(models.Model):
     owner = models.ForeignKey(User, related_name="notes")
-    tags = models.ManyToManyField(Tag, related_name="notes")
+    tags = models.ManyToManyField(Tag, related_name="notes", blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=250, blank=True)
