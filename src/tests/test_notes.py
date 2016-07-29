@@ -52,6 +52,27 @@ def test_notes_list_POST_201(rest_client, user, note):
 
 
 @pytest.mark.django_db
+def test_notes_list_POST_with_tag_201(rest_client, user, note, tag):
+    """
+    note owner can post new note with related tag
+    """
+
+    rest_client.force_authenticate(user=user)
+    url = reverse('notes-list')
+
+    data = {}
+    data['owner'] = user.id
+    data['title'] = 'one'
+    data['note'] = 'two'
+    data['tags'] = [tag.id]
+
+    response = rest_client.post(url, data)
+
+    assert response.status_code == 201
+    assert response.data['tags'] == [tag.id]
+
+
+@pytest.mark.django_db
 def test_notes_detail_GET_401(rest_client, note):
     """
     no unauthorized access
