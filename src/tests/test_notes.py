@@ -7,15 +7,7 @@ from rest_framework.test import APIClient
 
 from apps.notes.models import Note
 
-
-@pytest.fixture
-@pytest.mark.django_db
-def user():
-    user =  User.objects.create(
-        username='testuser',
-        password='123'
-    )
-    return user
+from .fixtures import note, rest_client, user
 
 
 @pytest.fixture
@@ -27,11 +19,6 @@ def note(user):
         note='test note body'
     )
     return note
-
-
-@pytest.fixture
-def rest_client():
-    return APIClient()
 
 
 def test_notes_list_GET_401(rest_client):
