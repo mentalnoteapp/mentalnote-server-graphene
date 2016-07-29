@@ -20,7 +20,8 @@ from django.contrib import admin
 
 from rest_framework.routers import DefaultRouter
 
-from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
+from rest_framework_jwt.views import (obtain_jwt_token, refresh_jwt_token,
+    verify_jwt_token)
 
 from djoser.views import (
     UserView,
@@ -60,5 +61,6 @@ urlpatterns = [
     # JWT
     url(r'^v1/authenticate/', obtain_jwt_token),
     url(r'^v1/reauthenticate/', refresh_jwt_token),
+    url(r'^v1/verify-token/', verify_jwt_token),
     url(r'^v1/', include(API_ROOT.urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
