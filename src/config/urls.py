@@ -17,50 +17,43 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.views.decorators.csrf import csrf_exempt
 
-from rest_framework.routers import DefaultRouter
+# from rest_framework_jwt.views import (obtain_jwt_token, refresh_jwt_token,
+    # verify_jwt_token)
 
-from rest_framework_jwt.views import (obtain_jwt_token, refresh_jwt_token,
-    verify_jwt_token)
+# from djoser.views import (
+    # UserView,
+    # RegistrationView,
+    # ActivationView,
+    # PasswordResetView,
+    # PasswordResetConfirmView,
+    # SetPasswordView
+# )
 
-from djoser.views import (
-    UserView,
-    RegistrationView,
-    ActivationView,
-    PasswordResetView,
-    PasswordResetConfirmView,
-    SetPasswordView
-)
+from graphene_django.views import GraphQLView
 
-from apps.notes.viewsets import NoteViewSet
-from apps.tags.viewsets import TagViewSet
-
-
-API_ROOT = DefaultRouter()
-API_ROOT.register(
-    r'notes', NoteViewSet, base_name='notes')
-API_ROOT.register(
-    r'tags', TagViewSet, base_name='tags')
+from .schema import schema
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^v1/account/$', UserView.as_view(), name='profile'),
-    url(r'^v1/register/$', RegistrationView.as_view(), name='register'),
-    url(r'^v1/activate/$', ActivationView.as_view(), name='activate'),
-    url(
-        r'^v1/password/reset/$',
-        PasswordResetView.as_view(),
-        name='password_reset'
-    ),
-    url(
-        r'^v1/password/reset/confirm/',
-        PasswordResetConfirmView.as_view(),
-        name='password_reset_confirm'
-    ),
+    # url(r'^v1/register/$', RegistrationView.as_view(), name='register'),
+    # url(r'^v1/activate/$', ActivationView.as_view(), name='activate'),
+    # url(
+        # r'^v1/password/reset/$',
+        # PasswordResetView.as_view(),
+        # name='password_reset'
+    # ),
+    # url(
+        # r'^v1/password/reset/confirm/',
+        # PasswordResetConfirmView.as_view(),
+        # name='password_reset_confirm'
+    # ),
 
-    # JWT
-    url(r'^v1/authenticate/', obtain_jwt_token),
-    url(r'^v1/reauthenticate/', refresh_jwt_token),
-    url(r'^v1/verify-token/', verify_jwt_token),
-    url(r'^v1/', include(API_ROOT.urls)),
+    # # JWT
+    # url(r'^v1/authenticate/', obtain_jwt_token),
+    # url(r'^v1/reauthenticate/', refresh_jwt_token),
+    # url(r'^v1/verify-token/', verify_jwt_token),
+    # url(r'^v1/', include(API_ROOT.urls)),
+    url(r'^graphql', csrf_exempt(GraphQLView.as_view(graphiql=True))),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
